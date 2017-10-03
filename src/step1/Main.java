@@ -36,7 +36,7 @@ public class Main {
 				StartCallTime = line.substring(14, 18);//通話開始時間取得
 				int callTime = Integer.parseInt(line.substring(20, 22));//通話時間取得
 
-				if(DayService.getServiceCode() == "E1"){
+				if(DayService.getServiceCode() == "E1"){//E1の時の処理
 					basicCharge = DayService.getBasicCharge();
 					unitPrice = DayService. getDiscount();
 					callCharge += unitPrice * callTime;

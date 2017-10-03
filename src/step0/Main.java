@@ -34,7 +34,7 @@ public class Main {
 				callCharge += unitPrice * callTime;
 				break;
 
-			case '9':
+			case '9'://書き込み
 				writer.write("1 " + ownerTelNumber + "\n");
 				writer.write("5 " + basicCharge + "\n");
 				writer.write("7 " + callCharge + "\n");

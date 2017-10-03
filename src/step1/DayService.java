@@ -9,7 +9,7 @@ public class DayService {
 	public static String getServiceCode(){
 
 	Main main = new Main();
-	String theTime = main.StartCallTime;
+	String theTime = main.StartCallTime;//通話開始時間連携
 		//通話開始が一定の時間内のとき、E1を返す
 		if(theTime.compareTo("08:00:00") >= 0 && theTime.compareTo("17:59:00") <= 0){
 			return SERVICE_CODE;
