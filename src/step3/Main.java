@@ -12,6 +12,8 @@ public class Main {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("data/invoice.dat"));
 		BufferedReader reader = new BufferedReader(new FileReader("data/record.log"));
 
+		Record record = new Record();
+
 		String ownerTelNumber = null;
 		int basicCharge = 0; // 基本料金
 		int unitPrice = 0; // 通話単価
