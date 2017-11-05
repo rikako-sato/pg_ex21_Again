@@ -10,7 +10,7 @@ public class InvoiceWriter {
 	private BufferedWriter writer;
 
 	public InvoiceWriter() throws IOException {
-		this(new FileWriter("C:\temp\\invoice.txt"));
+		this(new FileWriter("data/invoice.dat"));
 	}
 
 	public InvoiceWriter(Writer writer) {

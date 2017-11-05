@@ -15,7 +15,7 @@ public class InvoiceTest {
 		assertEquals(0, invoice.getBasicCharge());
 		assertEquals(0, invoice.getCallCharge());
 
-		invoice.setOwnerTelNumber(new Record("1 090-1234-00012"));
+		invoice.setOwnerTelNumber("090-1234-00012");
 		invoice.setBasicCharge(1200);
 		invoice.addCallCharge(100);
 
