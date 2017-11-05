@@ -1,4 +1,4 @@
-package step4;
+package step5;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -16,6 +16,7 @@ public class Main {
 		int callCharge = 0; // 通話料金
 		DayService dayService = new DayService();
 		FamilyService familyService = new FamilyService();
+		Invoice invoice = new Invoice();
 
 		RecordReader recordreader = new RecordReader();
 		Record record = recordreader.read();
@@ -55,8 +56,8 @@ public class Main {
 				basicCharge = dayService.calcBasicCharge(basicCharge)+familyService.calcBasicCharge(basicCharge); // 基本料金を求める
 
 				writer.write("1 " + ownerTelNumber + "\n");
-				writer.write("5 " + basicCharge + "\n");
-				writer.write("7 " + callCharge + "\n");
+				writer.write("5 " + invoice.setBasicCharge(basicCharge)+ "\n");
+				writer.write("7 " + invoice.addCallCharge(callCharge) + "\n");
 				writer.write("9 ====================\n");
 				break;
 			}

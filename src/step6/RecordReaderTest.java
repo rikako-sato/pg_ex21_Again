@@ -1,4 +1,4 @@
-package step4;
+package step6;
 
 import static org.junit.Assert.*;
 

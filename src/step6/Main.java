@@ -1,13 +1,11 @@
-package step4;
+package step6;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("data/invoice.dat"));
+		//BufferedWriter writer = new BufferedWriter(new FileWriter("data/invoice.dat"));
 
 
 		String ownerTelNumber = null;
@@ -16,6 +14,8 @@ public class Main {
 		int callCharge = 0; // 通話料金
 		DayService dayService = new DayService();
 		FamilyService familyService = new FamilyService();
+		Invoice invoice = new Invoice();
+		InvoiceWriter invoiceWriter = new InvoiceWriter();
 
 		RecordReader recordreader = new RecordReader();
 		Record record = recordreader.read();
@@ -53,18 +53,22 @@ public class Main {
 
 			case '9':
 				basicCharge = dayService.calcBasicCharge(basicCharge)+familyService.calcBasicCharge(basicCharge); // 基本料金を求める
+				invoice.setBasicCharge(basicCharge);
+				invoice.addCallCharge(callCharge);
 
-				writer.write("1 " + ownerTelNumber + "\n");
-				writer.write("5 " + basicCharge + "\n");
-				writer.write("7 " + callCharge + "\n");
-				writer.write("9 ====================\n");
+				invoiceWriter.write(invoice);
+
+//				writer.write("1 " + ownerTelNumber + "\n");
+//				writer.write("5 " + invoice.setBasicCharge(basicCharge)+ "\n");
+//				writer.write("7 " + invoice.addCallCharge(callCharge) + "\n");
+//				writer.write("9 ====================\n");
 				break;
 			}
 
 			record = recordreader.read();
 		}
 		recordreader.close();
-		writer.close();
+		invoiceWriter.close();
 	}
 
 }
