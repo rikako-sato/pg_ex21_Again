@@ -1,12 +1,12 @@
 package step10;
 
-public class MorningService  extends TimeService {
+public class NightService extends TimeService {
 
 	@Override
 	public boolean isServiceTime(int startHour) {
 		if(isJoined()){
-			 //割引対象期間6：00-7：59
-			if (6 <= startHour && startHour <= 7) {
+			 //割引対象期間23：00-3：59
+			if (23 <= startHour || 0 <= startHour && startHour <= 3) {
 				return true;
 			}
 		}
@@ -15,17 +15,18 @@ public class MorningService  extends TimeService {
 
 	@Override
 	public String getServiceCode() {
-		return "E3";
+		return "E2";
 	}
 
 	@Override
 	public int getDiscount() {
-		return 10;
+		return 5;
 	}
 
 	@Override
 	public int getBasicCharge() {
-		return 200;
+		return 500;
 	}
+
 
 }
