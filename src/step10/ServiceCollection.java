@@ -1,15 +1,13 @@
-package step8;
+package step10;
 
 public class ServiceCollection implements Service {
 
-	private String Normal;
-	private String E1;
-	private String C1;
 	public Object code;
 
 	DayService dayService = new DayService();
 	FamilyService familyService = new FamilyService();
 	Nightservice nightService = new Nightservice();
+	MorningService morningService = new MorningService();
 
 	public Object code(){
 
@@ -20,6 +18,7 @@ public class ServiceCollection implements Service {
 		dayService.checkService(record);
 		familyService.checkService(record);
 		nightService.checkService(record);
+		morningService.checkService(record);
 	}
 
 
@@ -31,6 +30,8 @@ public class ServiceCollection implements Service {
 			basicCharge =familyService.calcBasicCharge(basicCharge);
 			//nightServiceクラスの計算メソッドを呼び出す
 			basicCharge =nightService.calcBasicCharge(basicCharge);
+			//morningServiceクラスの計算メソッドを呼び出す
+			basicCharge =morningService.calcBasicCharge(basicCharge);
 
 			return basicCharge;
 
@@ -47,6 +48,9 @@ public class ServiceCollection implements Service {
 
 			//nightServiceクラスの計算メソッドを呼びだす
 			unitPrice = nightService.calcUnitPrice(record, unitPrice);
+
+			//morningServiceクラスの計算メソッドを呼びだす
+			unitPrice = morningService.calcUnitPrice(record, unitPrice);
 			return unitPrice;
 
 	}
@@ -57,6 +61,7 @@ public class ServiceCollection implements Service {
 		dayService.clear();
 		familyService.clear();
 		nightService.clear();
+		morningService.clear();
 
 	}
 

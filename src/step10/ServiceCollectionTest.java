@@ -1,4 +1,4 @@
-package step8;
+package step10;
 
 import static org.junit.Assert.*;
 
@@ -15,6 +15,12 @@ public class ServiceCollectionTest {
 
 		// 昼トク割引に加入している場合は基本料金は200円増し
 		service.checkService(new Record("2 E1"));
+		assertEquals(1200, service.calcBasicCharge(1000));
+
+		service.clear();
+
+		// 朝トク割引に加入している場合は基本料金は200円増し
+		service.checkService(new Record("2 E2"));
 		assertEquals(1200, service.calcBasicCharge(1000));
 
 		service.clear();
@@ -47,6 +53,12 @@ public class ServiceCollectionTest {
 		// 昼トク割引に加入している場合は通話単価は5円引き
 		service.checkService(new Record("2 E1"));
 		assertEquals(15, service.calcUnitPrice(new Record("5 2004/06/05 17:50 010 090-1234-0001"), 20));
+
+		service.clear();
+
+		// 朝トク割引に加入している場合は通話単価は10円引き
+		service.checkService(new Record("2 E2"));
+		assertEquals(10, service.calcUnitPrice(new Record("5 2004/06/05 07:00 010 090-1234-0002"), 20));
 
 		service.clear();
 
