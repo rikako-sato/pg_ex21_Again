@@ -17,7 +17,7 @@ public class MorningServiceTest {
 		assertFalse(morningService.isJoined());
 
 		// 朝トク割引のレコードの場合、加入フラグがtrueになる
-		morningService.checkService(new Record("2 E2"));
+		morningService.checkService(new Record("2 E3"));
 		assertTrue(morningService.isJoined());
 
 		// clear()メソッドを呼び出すと、加入フラグがfalseになる
@@ -39,7 +39,7 @@ public class MorningServiceTest {
 		assertFalse(morningService.isServiceTime(8));
 
 		// 朝トク割引に介入している場合は、6:00時から7:59分までに開始された通話は割引対象になる
-		morningService.checkService(new Record("2 E2"));
+		morningService.checkService(new Record("2 E3"));
 		assertFalse(morningService.isServiceTime(5));
 		assertTrue(morningService.isServiceTime(6));
 		assertTrue(morningService.isServiceTime(7));
@@ -51,7 +51,7 @@ public class MorningServiceTest {
 	public void testCalcUnitPrice() {
 		MorningService morningService = new MorningService();
 
-		morningService.checkService(new Record("2 E2"));
+		morningService.checkService(new Record("2 E3"));
 
 		// 朝トク割引の対象外の時間の場合、単価は変わらない
 		int unitPrice = morningService.calcUnitPrice(new Record("5 2004/06/05 08:00 010 090-1234-0002"), 20);
@@ -71,7 +71,7 @@ public class MorningServiceTest {
 		assertEquals(1000, basicCharge);
 
 		// 朝トク割引に加入している場合、基本料金は200円増し
-		morningService.checkService(new Record("2 E2"));
+		morningService.checkService(new Record("2 E3"));
 		basicCharge = morningService.calcBasicCharge(1000);
 		assertEquals(1200, basicCharge);
 	}

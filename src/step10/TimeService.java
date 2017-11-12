@@ -1,18 +1,58 @@
 package step10;
 
-public abstract class TimeService {
+abstract class TimeService implements Service {
+	// 割引サービスに加入しているか
+	private boolean joined = false;
 
-	public abstract void clear();
+	// 変数を初期化する
+	public void clear() {
+		joined = false;
+	}
 
-	public abstract boolean isJoined();
+	// 割引サービスに加入済み
+	public void joined() {
+		joined = true;
+	}
 
-	public abstract  boolean isServiceTime(int startHour);
+	// 割引サービスに加入しているか
+	public boolean isJoined() {
+		return joined;
+	}
 
-	public abstract  void checkService(Record record);
+	// 割引対象時間かどうかを判定する
+	abstract public boolean isServiceTime(int hour);
 
-	public abstract  int calcUnitPrice(Record record, int unitPrice);
+	// 割引サービスに加入しているかを検査する
+	public void checkService(Record record) {
+		if (getServiceCode().equals(record.getServiceCode())) {
+			joined();
+		}
+	}
 
-	public abstract int calcBasicCharge(int basicCharge);
+	// サービスコード
+	abstract public String getServiceCode();
 
+	// 単価を計算する
+	public int calcUnitPrice(Record record, int unitPrice) {
+		int hour = record.getStartHour();
+		if (isServiceTime(hour)) {
+			// 割引
+			unitPrice -= getDiscount();
+		}
+		return unitPrice;
+	}
 
+	// 割引額を取り出す
+	abstract public int getDiscount();
+
+	//	基本料金を計算する
+	public int calcBasicCharge(int basicCharge) {
+		if (isJoined()) {
+			basicCharge += getBasicCharge();
+		}
+		return basicCharge;
+	}
+
+	// 基本料金を取り出す
+	abstract public int getBasicCharge();
 }
