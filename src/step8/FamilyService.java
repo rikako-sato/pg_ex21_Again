@@ -1,6 +1,6 @@
 package step8;
 
-public class FamilyService {
+public class FamilyService implements Service {
 
 	private String[] telNumbers = new String[2];
 	private int telNumberCount = 0;
