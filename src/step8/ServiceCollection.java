@@ -10,59 +10,32 @@ public class ServiceCollection implements Service {
 	DayService dayService = new DayService();
 	FamilyService familyService = new FamilyService();
 
-	public Object code(){
-
-		return code;
-	}
-
+	Service[] services = {dayService, familyService};
 
 	public void checkService(Record record) {
-		if (record.getServiceCode().equals("E1")) {
-			code = E1;
-		}else if(record.getServiceCode().equals("C1")){
-			code = C1;
+		for(Service service : services) {
+			service.checkService(record);
 		}
-
-
 	}
 
 	public int calcBasicCharge(int basicCharge) {
-
-		if(code == E1){
-			//DayServiseクラスの計算メソッドを呼び出す
-			basicCharge = dayService.calcBasicCharge(basicCharge);
-			return basicCharge;
-
-
-		}else if(code == C1){
-			//familyServiceクラスの計算メソッドを呼びだす
-			basicCharge =familyService.calcBasicCharge(basicCharge);
-			return basicCharge;
+		for(Service service : services) {
+			basicCharge = service.calcBasicCharge(basicCharge);
 		}
-
 		return basicCharge;
-		}
+	}
 
 	public int calcUnitPrice(Record record, int unitPrice) {
-
-		if(code == E1){
-			//DayServiseクラスの計算メソッドを呼び出す
-			unitPrice = dayService.calcUnitPrice(record, unitPrice);
-			return unitPrice;
-
-		}else if(code == C1){
-			//familyServiceクラスの計算メソッドを呼びだす
-			unitPrice = familyService.calcUnitPrice(record, unitPrice);
-			return unitPrice;
+		for(Service service : services) {
+			unitPrice = service.calcUnitPrice(record, unitPrice);
 		}
-
 		return unitPrice;
 	}
 
-
-
 	public void clear() {
-
+		for(Service service : services) {
+			service.clear();
+		}
 	}
 
 }
