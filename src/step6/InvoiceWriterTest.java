@@ -15,7 +15,7 @@ public class InvoiceWriterTest {
 		InvoiceWriter writer = new InvoiceWriter(output);
 
 		Invoice invoice = new Invoice();
-		invoice.setOwnerTelNumber(new Record("1 090-1234-0001"));
+		invoice.setOwnerTelNumber("090-1234-0001");
 		invoice.setBasicCharge(1100);
 		invoice.addCallCharge(230);
 

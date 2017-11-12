@@ -11,17 +11,19 @@ public class DayServiceTest {
 		DayService dayService = new DayService();
 
 		// インスタンスを作成した直後は、加入フラグはfalse
-		assertFalse(dayService.checkService(null));
+		assertFalse(dayService.isJoined());
 
 		// 昼トク割引意外のレコードの場合、加入フラグはfalseのまま
-		assertFalse(dayService.checkService(new Record("2 C1 090-1234-0001")));
+		dayService.checkService(new Record("2 C1 090-1234-0001"));
+		assertFalse(dayService.isJoined());
 
 		// 昼トク割引のレコードの場合、加入フラグがtrueになる
-		assertTrue(dayService.checkService(new Record("2 E1")));
+		dayService.checkService(new Record("2 E1"));
+		assertTrue(dayService.isJoined());
 
 		// clear()メソッドを呼び出すと、加入フラグがfalseになる
 		dayService.clear();
-		assertFalse(dayService.checkService(null));
+		assertFalse(dayService.isJoined());
 	}
 
 	@Test
@@ -29,17 +31,17 @@ public class DayServiceTest {
 		DayService dayService = new DayService();
 
 		// 昼トク割引に加入していない場合は、どの時間も昼トク割引の対象にならない
-		assertFalse(dayService.isServiceTime(new Record("5 2004/06/05 07:00 010 090-1234-0002")));
-		assertFalse(dayService.isServiceTime(new Record("5 2004/06/05 08:00 010 090-1234-0002")));
-		assertFalse(dayService.isServiceTime(new Record("5 2004/06/05 17:00 010 090-1234-0002")));
-		assertFalse(dayService.isServiceTime(new Record("5 2004/06/05 18:00 010 090-1234-0002")));
+		assertFalse(dayService.isServiceTime(7));
+		assertFalse(dayService.isServiceTime(8));
+		assertFalse(dayService.isServiceTime(17));
+		assertFalse(dayService.isServiceTime(18));
 
 		// 昼トク割引に介入している場合は、8:00時から17:59分までに開始された通話は割引対象になる
 		dayService.checkService(new Record("2 E1"));
-		assertFalse(dayService.isServiceTime(new Record("5 2004/06/05 07:00 010 090-1234-0002")));
-		assertTrue(dayService.isServiceTime(new Record("5 2004/06/05 08:00 010 090-1234-0002")));
-		assertTrue(dayService.isServiceTime(new Record("5 2004/06/05 17:00 010 090-1234-0002")));
-		assertFalse(dayService.isServiceTime(new Record("5 2004/06/05 18:00 010 090-1234-0002")));
+		assertFalse(dayService.isServiceTime(7));
+		assertTrue(dayService.isServiceTime(8));
+		assertTrue(dayService.isServiceTime(17));
+		assertFalse(dayService.isServiceTime(18));
 	}
 
 	@Test
